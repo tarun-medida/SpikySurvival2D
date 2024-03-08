@@ -26,7 +26,20 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             gameManager.AddScore(1); // Increase the score by 1 when the ball jumps.
         }
+        // Check for touch input
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0); // Get the first touch
+
+            // Check if the touch phase is beginning (when the finger first touches the screen)
+            if (touch.phase == TouchPhase.Began)
+            {
+                rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+                gameManager.AddScore(1); // Increase the score by 1 for each touch.
+            }
+        }
     }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         // Check if the player collided with a GameObject tagged as "Spike"
