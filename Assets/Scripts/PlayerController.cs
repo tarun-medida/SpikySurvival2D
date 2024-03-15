@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float jumpForce = 10f;
     private Rigidbody2D rb;
     private GameManager gameManager; // Reference to the GameManager script
+    public GameObject deadScreen;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
         // Check if the player collided with a GameObject tagged as "Spike"
         if (collision.gameObject.CompareTag("Spike"))
         {
+            deadScreen.SetActive(true);
             // Stop the game when player is dead
             Time.timeScale = 0f;
             // Destroy the player GameObject

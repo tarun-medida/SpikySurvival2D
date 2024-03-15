@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GameManager : MonoBehaviour
     private Transform ringCenterTransform; // Reference to the player's transform
     private GameObject[] previousSpikes; // Array to store references to previously spawned spikes
     public PlayzoneRotation ringPrefab;
+
+    public GameObject pauseScreen;
 
 
     void Start()
@@ -34,7 +37,32 @@ public class GameManager : MonoBehaviour
             lastScore += 10;
             ringPrefab.rotationSpeed += 25;
         }
+        // Check for user input to toggle pause/resume
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
+    
+    public void Resume()
+    {
+        // Unpause the game
+        Time.timeScale = 1f;
+        pauseScreen.SetActive(false);
+    }
+    public void Exit()
+    {
+        // Quit the application 
+        Application.Quit();
+    }
+    public void PlayAgain()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
+    }
+
     void SpawnSpike()
     {
         int numberOfSpikes = Mathf.FloorToInt((score + 10) / 10); // Calculate the total number of spikes
