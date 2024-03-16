@@ -17,10 +17,11 @@ public class GameManager : MonoBehaviour
     public PlayzoneRotation ringPrefab;
 
     public GameObject pauseScreen;
-
+    public int scorePerSecond = 1; // Score to add per second
 
     void Start()
     {
+        StartCoroutine(IncreaseScore());
         ringCenterTransform = GameObject.FindGameObjectWithTag("Center").transform; // Find the player GameObject and get its transform
         //Initialize with 1 spike.
         SpawnSpike();
@@ -44,7 +45,21 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
         }
     }
-    
+    IEnumerator IncreaseScore()
+    {
+        while (true)
+        {
+            // Add scorePerSecond to the score every second
+            score += scorePerSecond;
+
+            // Update the score text
+            UpdateScoreText();
+
+            // Wait for one second
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
     public void Resume()
     {
         // Unpause the game
@@ -100,11 +115,11 @@ public class GameManager : MonoBehaviour
     }
 
     // Call this method whenever the player's score changes
-    public void AddScore(int scoreToAdd)
-    {
-        score += scoreToAdd;
-        UpdateScoreText();
-    }
+    //public void AddScore(int scoreToAdd)
+    //{
+    //    score += scoreToAdd;
+    //    UpdateScoreText();
+    //}
 
     // Update the score text component
     void UpdateScoreText()
