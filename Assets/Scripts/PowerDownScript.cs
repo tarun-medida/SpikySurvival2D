@@ -10,6 +10,7 @@ public class PowerDownScript : MonoBehaviour
     private Vector3 originalBallSize; // Original size of the ball
 
     public float fallSpeed = 5f;
+    public AudioSource audioSource; // Reference to the AudioSource component
     void Start()
     {
         originalBallSize = ball.transform.localScale; // Store the original size of the ball
@@ -31,6 +32,10 @@ public class PowerDownScript : MonoBehaviour
         // Check if the player's ball collided with the power-up
         if (other.gameObject.tag == "Ball")
         {
+            if (audioSource != null && audioSource.clip != null)
+            {
+                audioSource.Play(); // Play the sound
+            }
             // Activate the power-up effect
             StartCoroutine(ActivatePowerUp(other.gameObject));
         }

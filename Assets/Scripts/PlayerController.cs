@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private GameManager gameManager; // Reference to the GameManager script
     public GameObject deadScreen;
+    public AudioSource audioSource; // Reference to the AudioSource component
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -53,13 +54,22 @@ public class PlayerController : MonoBehaviour
         // Check if the player collided with a GameObject tagged as "Spike"
         if (collision.gameObject.CompareTag("Spike"))
         {
-            deadScreen.SetActive(true);
-            // Stop the game when player is dead
-            Time.timeScale = 0f;
-            // Destroy the player GameObject
-            Destroy(gameObject);
-            
-            // You can add other game over logic here, like displaying a game over screen, resetting the game, etc.
+            if (audioSource != null && audioSource.clip != null)
+            {
+                audioSource.Play(); // Play the sound
+            }
+            StartCoroutine(DeadScreen(0.5f));
+           
         }
+    }
+    IEnumerator DeadScreen(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+
+        deadScreen.SetActive(true);
+        // Destroy the player GameObject
+        Destroy(gameObject);
+        // Stop the game when player is dead
+        Time.timeScale = 0f;
     }
 }

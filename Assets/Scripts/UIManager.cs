@@ -10,6 +10,8 @@ public class UIManager : MonoBehaviour
     public GameObject mainMenu;
     public GameObject shopMenu;
 
+    public AudioSource audioSource; // Reference to the AudioSource component
+
     void Start()
     {
         OpenMainMenu();
@@ -24,6 +26,10 @@ public class UIManager : MonoBehaviour
 
     public void OpenProfileMenu()
     {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play(); // Play the sound
+        }
         profileMenu.SetActive(true);
         settingsMenu.SetActive(false);
         mainMenu.SetActive(false);
@@ -32,6 +38,10 @@ public class UIManager : MonoBehaviour
 
     public void OpenSettingsMenu()
     {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play(); // Play the sound
+        }
         profileMenu.SetActive(false);
         settingsMenu.SetActive(true);
         mainMenu.SetActive(false);
@@ -48,6 +58,10 @@ public class UIManager : MonoBehaviour
 
     public void OpenShopMenu()
     {
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play(); // Play the sound
+        }
         profileMenu.SetActive(false);
         settingsMenu.SetActive(false);
         mainMenu.SetActive(false);
@@ -55,9 +69,10 @@ public class UIManager : MonoBehaviour
     }
     public void BackToMainScreen()
     {
-        profileMenu.SetActive(false);
-        settingsMenu.SetActive(false);
-        mainMenu.SetActive(true);
-        shopMenu.SetActive(false);
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.Play(); // Play the sound
+        }
+        OpenMainMenu();
     }
 }
