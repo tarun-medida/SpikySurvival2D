@@ -68,8 +68,8 @@ public class GameManager : MonoBehaviour
     }
     public void Exit()
     {
-        // Quit the application 
-        Application.Quit();
+        // Reload the main scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
     }
     public void PlayAgain()
     {
@@ -77,7 +77,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
     }
-
     void SpawnSpike()
     {
         int numberOfSpikes = Mathf.FloorToInt((score + 10) / 10); // Calculate the total number of spikes

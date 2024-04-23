@@ -10,9 +10,4 @@ public class PlayGame : MonoBehaviour
         // Start the game by loading the main screen
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    public void Exit()
-    {
-        // Quit the application (only works in standalone builds, not in the Unity Editor)
-        Application.Quit();
-    }
 }

@@ -9,6 +9,9 @@ public class ObstacleScript : MonoBehaviour
 
     private Transform player; // Reference to the player's transform
     private Vector3 direction;
+    //public float destroyDistance = 0.5f; // Distance to destroy the obstacle
+    //public float rotateSpeed = 50f; // Speed at which the obstacle rotates
+    private float destroyObject = 5f;
 
     void Start()
     {
@@ -24,11 +27,25 @@ public class ObstacleScript : MonoBehaviour
         // Calculate the direction vector from the obstacle to the player
         direction = (player.position - transform.position).normalized;
         // Start moving the obstacle towards the player
+        Invoke("DestroyObstacle", destroyObject);
     }
     void Update()
     {
+        //// Rotate the obstacle around its own axis
+        //transform.Rotate(Vector3.forward, rotateSpeed * Time.deltaTime);
         // Move the obstacle in the calculated direction
         transform.Translate(direction * moveSpeed * Time.deltaTime);
-    }
+        // Check the distance between the obstacle and the player
+        //float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
+        //// If the distance exceeds the destroyDistance, destroy the obstacle
+        //if (distanceToPlayer > destroyDistance)
+        //{
+        //    Destroy(gameObject);
+        //}
+    }
+    void DestroyObstacle()
+    {
+        Destroy(gameObject);
+    }
 }
