@@ -66,7 +66,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         pauseScreen.SetActive(false);
     }
-    public void Exit()
+
+    public void LoadMainMenu()
     {
         // Reload the main scene
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
